@@ -5,3 +5,6 @@
 
 - utils are .py functions
 - data are .npy files
+
+
+- Remember to put requirements.txt file later on (preferably by creating a minimum with conda)
