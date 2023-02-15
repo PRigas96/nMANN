@@ -7,15 +7,15 @@ from utils import geometry as geo
 # number of data will be chosen by the user
 
 
-def create_data(number_of_data, square0):
+def create_data(number_of_data, x0, y0 ,size0, rotation0):
     data = []
-    
-    for i in range(number_of_data):
+    cnt = 0
+    while(cnt != number_of_data):
 
-        x = random.choice(square0[0])
-        y = random.choice(square0[1])
-        size = random.choice(square0[2])
-        rotation = random.choice(square0[3])
+        x = random.choice(x0)
+        y = random.choice(y0)
+        size = random.choice(size0)
+        rotation = random.choice(rotation0)
         
 
         current_square = np.array([x,y,size,rotation])
@@ -24,6 +24,7 @@ def create_data(number_of_data, square0):
         # if they do not intersect add them to the data
         if not geo.check_intersection(data, current_square):
             data.append(current_square)
+            cnt += 1
     return data
 
 
