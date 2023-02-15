@@ -13,7 +13,7 @@ def plot_data(data, size=10, limits=[-10, 10, -10, 10]):
 
     for i in range(num_polygons):
         square = geo.create_square2(data[i])
-        print(square.shape)
+        #print(square.shape)
         polygon = Polygon(square, True)
         patches.append(polygon)
 
