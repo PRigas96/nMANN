@@ -1,4 +1,5 @@
 import numpy as np
+import math
 import random  # if needed
 
 
@@ -36,37 +37,102 @@ def IsPointInsidePoly(vertex, poly_vertices):
 
     return result
 
+#given a square, we retrieve its 4 vertices 
+# the square is represented as a vector of
+# center of mass, edge size and rotation
+
+def create_square2(square):
+    
+    
+    x_center = square[0]
+    y_center = square[1]
+    mass_center = np.array([x_center, y_center])
+    size = square[2]
+    rotation = square[3]
+
+    #calculate the coordinates of the vertices as if the square is not rotated
+    x1 = x_center - (size/2)
+    y1 = y_center - (size/2)
+    x2 = x_center - (size/2)
+    y2 = y_center + (size/2)
+    x3 = x_center + (size/2)
+    y3 = y_center + (size/2)
+    x4 = x_center + (size/2)
+    y4 = y_center - (size/2)
+
+    vertice1 = [x1,y1]
+    vertice2 = [x2,y2]
+    vertice3 = [x3,y3]
+    vertice4 = [x4,y4]
+
+    #then rotate the vertices according to the given rotation
+    #the reference point of the rotation is the center of mass of the square
+    vertice1 = rotate_point(vertice1, mass_center, rotation)
+    vertice2 = rotate_point(vertice2, mass_center, rotation)
+    vertice3 = rotate_point(vertice3, mass_center, rotation)
+    vertice4 = rotate_point(vertice4, mass_center, rotation)
+
+    vertices = np.array([vertice1, vertice2, vertice3, vertice4])
+
+    return vertices
+
+
+#rotate a point in response to a reference point
+def rotate_point(point, ref_point, theta):
+
+    theta = np.deg2rad(theta)
+    sin = math.sin(theta)
+    cos = math.cos(theta)
+
+    x = point[0]
+    y = point[1]
+
+    x_ref = ref_point[0]
+    y_ref = ref_point[1]
+
+    x = x - x_ref
+    y = y - y_ref
+
+    new_x = x * cos - y * sin;
+    new_y = x * sin + y * cos;
+
+    x = new_x + x_ref
+    y = new_y + y_ref
+
+    return np.array([x, y])
+
+
 # lets create a function to create a square with rotation
 
 
-def create_square2(x, y, size, rotation):
-    # create a square
-    square = np.array(
-        [[x, y], [x + size, y], [x + size, y + size], [x, y + size]])
-    # rotate the square
-    rotation = np.deg2rad(rotation)
-    square = np.array([rotate_point(square[0], square[i], rotation)
-                      for i in range(square.__len__())])
-    return square
+# def create_square2(x, y, size, rotation):
+#     # create a square
+#     square = np.array(
+#         [[x, y], [x + size, y], [x + size, y + size], [x, y + size]])
+#     # rotate the square
+#     rotation = np.deg2rad(rotation)
+#     square = np.array([rotate_point(square[0], square[i], rotation)
+#                       for i in range(square.__len__())])
+#     return square
 
 
-def rotate_point(init_point, point, theta):
-    if np.all(init_point == point):
-        return point
-    else:
-        x0 = init_point[0]
-        y0 = init_point[1]
-        x_ = point[0]
-        y_ = point[1]
-        r0 = np.arctan2(y_ - y0, x_ - x0)
-        r = theta
-        r_ = r0 + r
+# def rotate_point(init_point, point, theta):
+#     if np.all(init_point == point):
+#         return point
+#     else:
+#         x0 = init_point[0]
+#         y0 = init_point[1]
+#         x_ = point[0]
+#         y_ = point[1]
+#         r0 = np.arctan2(y_ - y0, x_ - x0)
+#         r = theta
+#         r_ = r0 + r
 
-        dist = np.sqrt((x0-x_)**2 + (y0-y_)**2)
-        #x = x0 + dist / np.sqrt(1 + np.tan(r_)**2)
-        x = x0 + dist * np.cos(r_)
-        y = y0 + np.sqrt(dist**2 - (x-x0)**2)
-        return [x, y]
+#         dist = np.sqrt((x0-x_)**2 + (y0-y_)**2)
+#         #x = x0 + dist / np.sqrt(1 + np.tan(r_)**2)
+#         x = x0 + dist * np.cos(r_)
+#         y = y0 + np.sqrt(dist**2 - (x-x0)**2)
+#         return [x, y]
 # check if two squares intersect
 
 # check if two squares intersect
@@ -126,7 +192,7 @@ def check_if_intersect_segment_segment(point1, point2, point3, point4):
     return False
 
 
-def check_intersection(data, x, y, size, rotation):
+def check_intersection(data, square):
     """
         Check if a square intersects with any of the squares in data
 
@@ -141,12 +207,11 @@ def check_intersection(data, x, y, size, rotation):
             bool: True if the square intersects with any of the squares in data
     """
     # create a square
-    square = create_square2(x, y, size, rotation)
+    square = create_square2(square)
     # check if it intersects with any of the squares in the data
     for i in range(data.__len__()):
         # create a square
-        square2 = create_square2(
-            data[i][0], data[i][1], data[i][2], data[i][3])
+        square2 = create_square2(data[i])
         # check if they intersect
         if check_if_intersect2(square, square2):
             return True

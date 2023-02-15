@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-import geometry as geo
+from utils import geometry as geo
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 
@@ -12,8 +12,8 @@ def plot_data(data, size=10, limits=[-10, 10, -10, 10]):
     num_polygons = data.__len__()
 
     for i in range(num_polygons):
-        square = geo.create_square2(
-            data[i][0], data[i][1], data[i][2], data[i][3])
+        square = geo.create_square2(data[i])
+        print(square.shape)
         polygon = Polygon(square, True)
         patches.append(polygon)
 
