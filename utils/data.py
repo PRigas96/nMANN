@@ -65,3 +65,4 @@ def gen_qpoints(squares, num_pts):
                 label = True
         if not label:
             q_pts.append([x,y])
+    return q_pts
