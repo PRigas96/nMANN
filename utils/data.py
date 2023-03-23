@@ -10,6 +10,9 @@ from utils import geometry as geo
 def create_data(number_of_data, x0, y0 ,size0, rotation0):
     data = []
     cnt = 0
+    max_num_of_collisions = 0.1 * number_of_data #number of acceptable intersections for each square generation
+    num_of_collisions = 0
+
     while(cnt != number_of_data):
 
         x = random.choice(x0)
@@ -25,6 +28,11 @@ def create_data(number_of_data, x0, y0 ,size0, rotation0):
         if not geo.check_intersection(data, current_square):
             data.append(current_square)
             cnt += 1
+            num_of_collisions = 0
+        else:
+            num_of_collisions += 1
+            if num_of_collisions == max_num_of_collisions:
+                break
     return data
 
 
