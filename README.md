@@ -6,4 +6,9 @@
 - utils are .py functions
 - data are .npy files
 
-- test for codespaces
+# Codespaces
+- press <> Code
+- press On current branch
+
+and work remotely with github resources! 
+
