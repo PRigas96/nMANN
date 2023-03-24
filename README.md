@@ -7,19 +7,22 @@
 - data are .npy files
 
 # Tools
+
 ## Codespaces
+
 - press <> Code
 - press On current branch
 
-and work remotely with github resources! 
+and work remotely with github resources!
 
 ## Copilot
+
 remember to use copilot to autocomplete code! (Free for Students)
 
 ## Commit messages with GPT
-GPT helps us create commit messages with better info.
-see https://github.com/di-sukharev/opencommit for more
 
+GPT helps us create commit messages with better info.
+see <https://github.com/di-sukharev/opencommit> for more
 
 > 1. Install OpenCommit globally to use in any repository:
 >
@@ -35,4 +38,4 @@ see https://github.com/di-sukharev/opencommit for more
 >  opencommit config set OPENAI_API_KEY=<your_api_key>
 >  ```
 >
->  Your api key is stored locally in `~/.opencommit` config file.
+> Your api key is stored locally in `~/.opencommit` config file.
