@@ -11,13 +11,13 @@ def create_data(number_of_data, x0, y0 ,size0, rotation0):
     
     data = []
     cnt = 0
-    max_num_of_collisions = 0.07 * number_of_data #number of acceptable intersections for each square generation
+    max_num_of_collisions = 0.05 * number_of_data #number of acceptable intersections for each square generation
     num_of_collisions = 0
     
     while(cnt != number_of_data):
         if 1000 <= cnt <= 10000 and (cnt - 1000) % 500 == 0:
             print("reached ", cnt, " squares!")
-            np.save('./data_v2/10000sq/{cnt}sq_1_4.npy', data)
+            np.save(f'./data_v2/10000sq/{cnt}sq_1_4.npy', data)
     
         print("creating square ", cnt, "\n")
         x = random.choice(x0)
