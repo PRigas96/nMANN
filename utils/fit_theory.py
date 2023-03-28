@@ -1,3 +1,11 @@
+"""
+    Created on Wed Oct  7 10:55:00 2020
+
+    create the fit of y[n] = a*x[n] +  b*u[n-n0] + c*u[n-n1]
+    where a,b,c are constants and n0,n1 are integers
+    and x[n] is the input signal and u[n] is the unit step function
+    and n is the discrete time index
+"""
 # lets create a y[n] = a*x[n] +  b*u[n-n0] + c*u[n-n1]
 # x[n] = x[0] + n * w
 # improts
