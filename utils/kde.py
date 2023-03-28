@@ -94,8 +94,6 @@ def cost_function(data, bandwidth):
         n_error.append(error[i] / clusters[i].__len__())
     return w_error, n_error, error, clusters.__len__()
 
-# get the optimal bandwidth
-
 
 def opt_bw(data, min_val=1, max_val=2.5):
     """
@@ -174,6 +172,15 @@ def opt_bw_selection(ans_res):
 
 
 def optimal_clustering(data):
+    """
+        get the optimal clustering for the data
+
+        Parameters:
+            data: data to be clustered
+
+        Returns:
+            clusters: the clusters
+    """
     # get bw_opt
     bw_opt, ans_res = opt_bw(data)
     # cluster data

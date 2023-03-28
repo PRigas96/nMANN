@@ -15,16 +15,21 @@ timeq = [25.58,	23.03,	17.92,	13.38,	4.12]
 accq = [95.95,	95.38,	95.19,	94.63,	38.15]
 # 1k squares
 """
-x1 = [1, 1.1, 1.4, 2.1, 2.4, 2.5, 2.6, 2.9, 3.3]
-x2 = [2.2,	2.5,	2.55,	2.65,	3,	3.1,	3.4,	3.65,	4.95]
-x3 = [8,	7,	6,	5,	5,	5,	5,	4,	1]
+# dataset 1
+x1 = [1, 1.1, 1.4, 2.1, 2.4, 2.5, 2.6, 2.9, 3.3]  # h_n
+x2 = [2.2,	2.5,	2.55,	2.65,	3,	3.1,	3.4,	3.65,	4.95]  # w_Ncl
+x3 = [8,	7,	6,	5,	5,	5,	5,	4,	1]  # number of clusters get from x1
+# time of querry for 1k points
 time = [10.3,	9.3,	8.46,	6.9,	6.2,	6.1,	5.94,	5.38,	1.64]
-acc = [97.97,	97.76,	97.07,	96.62,	96.57,	96.48,	96.46,	95.84,	39.2]
-timeq = [18.7,	18.5,	15.49,	13.3,	12.2,	12.4, 12.1,	10.4, 4.88]
-accq = [96.61,	96.7,	96.37,	96.59,	96.69,	96.48,	95.2,	93.8, 38.17]
+# acc + clustering
+acc = [97.97,	97.76,	97.07,	96.62,	96.57,	96.48,
+       96.46,	95.84,	39.2]  # accuracy per h_n
+# acc_simple
+
 # plot acc accq
 # plot a step function
 
+"""
 plt.step(x1, x2, where='post', linewidth=2)
 # name x and y axis
 plt.xlabel(r'$w_{N_{cl}}$', fontsize=14)
@@ -35,6 +40,7 @@ plt.grid()
 e = 0.01
 plt.xlim(1, 3.3+e)
 plt.show()
+"""
 """
 
 plt.plot(x2, acc, label='acc')
@@ -49,12 +55,12 @@ plt.show()
 # plot acc and accq as functions of time and timeq
 # make line thicke
 """
-"""
 plt.plot(time, acc,  linewidth=2, color='red')
-plt.plot(timeq, accq, linewidth=2, color='green')
 circle_rad = 10  # This is the radius, in points
+# operational point  => kde.py, being time and accuracy of optimal h_n. # per dataset
+# for the optimal h_n which you get from kde.py, give it algo and print acc and perf. Thouse are the point (x,y) = (time, acc)
 point = [18.29, 95.28]
-#point = [12.4, 96.85]
+# point = [12.4, 96.85] # operational point of data_no2
 plt.plot(point[0], point[1], 'x', color='black',
          markersize=10, label='Operational point')
 # ms=circle_rad * 2, mec='b', mfc='none', mew=2)
@@ -78,7 +84,6 @@ plt.show()
 # save image
 # plt.savefig('Figure_10k_acc_time.png', dpi=300)
 
-"""
 
 """
 fig, ax1 = plt.subplots()
