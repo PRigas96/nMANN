@@ -98,37 +98,47 @@ def cost_function(data, bandwidth):
 
 
 def opt_bw(data, min_val=1, max_val=2.5):
+    """
+        compute the optimal bandwidth for the data
+
+        Parameters:
+            data: data to be clustered
+            min_val: minimum value for the weight of the number of clusters
+            max_val: maximum value for the weight of the number of clusters
+
+        Returns:
+            answer: the optimal bandwidth
+    """
+    # scan the bandwidth from 0.1 to 5
     # plot the cost function for bw from 0.1 to 5
     bw = np.arange(0.1, 5, 0.05)
+    # initialize cost
     cost = []
     for i in bw:
-        cost.append(cost_function(data, i))
+        # plot for every bw the accuracy cost
+        cost.append(cost_function(data, i))  # cost
     cost = np.array(cost)
     # convolute error and number of clusters to get a cost function
-    y1 = cost[:, 0]
+    y1 = cost[:, 0]  # accuracy cost
     y1_max = np.max(y1)
-    y2 = cost[:, -1]
+    y2 = cost[:, -1]  # number of clusters
     y2_max = np.max(y2)
-    y1_norm = y1 / y1_max
-    y2_norm = y2 / y2_max
-    #y = np.convolve(y1, y2, mode='same')
-    #y3 = (y1**2) * (y2**3)
-    #plt.plot(bw, y)
-    #plt.plot(bw, y3)
+    y1_norm = y1 / y1_max  # normalized accuracy cost
+    y2_norm = y2 / y2_max  # normalized time cost
     # y2 is more important than y1
     answer = []
+    # y2_weight is w_ncl
     for y2_weight in np.arange(min_val, max_val, 0.1):
         #y2_weight = 2
+        # new cost function
         d = abs(y1_norm - y2_weight*y2_norm)
         #plt.plot(bw, d)
         a = np.where(d == np.min(d))
         #print("optimal bandwidth: ", bw[a])
         answer.append(bw[a])
-
     # get answer in one array
     answer = np.array(answer)
     answer = answer.reshape(answer.__len__(), 1)
-
     ans_res = []
     for i in range(answer.__len__()):
         for j in range(answer[i][0].__len__()):
@@ -136,10 +146,9 @@ def opt_bw(data, min_val=1, max_val=2.5):
     # sort the answer
     ans_res = np.array(ans_res)
     ans_res = np.sort(ans_res)
-
     # get optimal bw
     bw_opt = opt_bw_selection(ans_res)
-
+    # return the optimal bandwidth
     return bw_opt, ans_res
 
 
