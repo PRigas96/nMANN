@@ -25,7 +25,6 @@ accq = [96.61,	96.7,	96.37,	96.59,	96.69,	96.48,	95.2,	93.8, 38.17]
 # plot acc accq
 # plot a step function
 
-"""
 plt.step(x1, x2, where='post', linewidth=2)
 # name x and y axis
 plt.xlabel(r'$w_{N_{cl}}$', fontsize=14)
@@ -38,7 +37,6 @@ plt.xlim(1, 3.3+e)
 plt.show()
 """
 
-"""dd
 plt.plot(x2, acc, label='acc')
 plt.plot(x2, accq, label='accq')
 plt.xlabel(r'$h_n$')
@@ -82,6 +80,7 @@ plt.show()
 
 """
 
+"""
 fig, ax1 = plt.subplots()
 
 color1 = 'tab:red'
@@ -116,6 +115,7 @@ ax2.legend(['number of clusters'], loc='upper right')
 ax1.grid()
 plt.show()
 
+"""
 """
 
 y = []
