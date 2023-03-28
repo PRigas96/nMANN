@@ -7,13 +7,24 @@ from matplotlib.collections import PatchCollection
 
 
 def plot_data(data, size=10, limits=[-10, 10, -10, 10]):
+    """
+        Plot the data points 
+
+        Parameters:
+            data: data to be plotted
+            size: size of the plot
+            limits: limits of the plot
+
+        Returns:
+            None
+    """
     fig, ax = plt.subplots(figsize=(size, size))
     patches = []
     num_polygons = data.__len__()
 
     for i in range(num_polygons):
         square = geo.create_square2(data[i])
-        #print(square.shape)
+        # print(square.shape)
         polygon = Polygon(square, True)
         patches.append(polygon)
 

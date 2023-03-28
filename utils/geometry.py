@@ -37,20 +37,29 @@ def IsPointInsidePoly(vertex, poly_vertices):
 
     return result
 
-#given a square, we retrieve its 4 vertices 
+# given a square, we retrieve its 4 vertices
 # the square is represented as a vector of
 # center of mass, edge size and rotation
 
+
 def create_square2(square):
-    
-    
+    """
+        Create a square given its center of mass, edge size and rotation
+
+        Parameters:
+            square (list): [x_center, y_center, size, rotation]
+
+        Returns:
+            np.array: 4x2 array of the vertices of the square
+    """
+
     x_center = square[0]
     y_center = square[1]
     mass_center = np.array([x_center, y_center])
     size = square[2]
     rotation = square[3]
 
-    #calculate the coordinates of the vertices as if the square is not rotated
+    # calculate the coordinates of the vertices as if the square is not rotated
     x1 = x_center - (size/2)
     y1 = y_center - (size/2)
     x2 = x_center - (size/2)
@@ -60,13 +69,13 @@ def create_square2(square):
     x4 = x_center + (size/2)
     y4 = y_center - (size/2)
 
-    vertice1 = [x1,y1]
-    vertice2 = [x2,y2]
-    vertice3 = [x3,y3]
-    vertice4 = [x4,y4]
+    vertice1 = [x1, y1]
+    vertice2 = [x2, y2]
+    vertice3 = [x3, y3]
+    vertice4 = [x4, y4]
 
-    #then rotate the vertices according to the given rotation
-    #the reference point of the rotation is the center of mass of the square
+    # then rotate the vertices according to the given rotation
+    # the reference point of the rotation is the center of mass of the square
     vertice1 = rotate_point(vertice1, mass_center, rotation)
     vertice2 = rotate_point(vertice2, mass_center, rotation)
     vertice3 = rotate_point(vertice3, mass_center, rotation)
@@ -77,8 +86,19 @@ def create_square2(square):
     return vertices
 
 
-#rotate a point in response to a reference point
+# rotate a point in response to a reference point
 def rotate_point(point, ref_point, theta):
+    """
+        Rotate a point in response to a reference point
+
+        Parameters:
+            point (list): [x,y] coordinates of the point
+            ref_point (list): [x,y] coordinates of the reference point
+            theta (float): rotation angle in degrees
+
+        Returns:
+            np.array: [x,y] coordinates of the rotated point
+    """
 
     theta = np.deg2rad(theta)
     sin = math.sin(theta)
@@ -93,8 +113,8 @@ def rotate_point(point, ref_point, theta):
     x = x - x_ref
     y = y - y_ref
 
-    new_x = x * cos - y * sin;
-    new_y = x * sin + y * cos;
+    new_x = x * cos - y * sin
+    new_y = x * sin + y * cos
 
     x = new_x + x_ref
     y = new_y + y_ref
@@ -161,6 +181,16 @@ def check_if_intersect(square1, square2):
 
 
 def check_if_intersect2(square1, square2):
+    """
+        Check if two squares intersect
+
+        Parameters:
+            square1 (np.array): 4x2 array of the vertices of the square
+            square2 (np.array): 4x2 array of the vertices of the square
+
+        Returns:
+            bool: True if the squares intersect
+    """
 
     for i in range(4):
         if check_if_intersect_segment_square(square1[i], square1[(i + 1) % 4], square2):
@@ -170,6 +200,16 @@ def check_if_intersect2(square1, square2):
 
 
 def check_if_intersect_segment_square(point1, point2, square):
+    """
+        Check if a segment intersects a square
+
+        Parameters:
+            point1 (list): [x,y] coordinates of the first point of the segment
+            point2 (list): [x,y] coordinates of the second point of the segment
+
+        Returns:
+            bool: True if the segment intersects the square
+    """
 
     for i in range(4):
         if check_if_intersect_segment_segment(point1, point2, square[i], square[(i + 1) % 4]):
@@ -178,6 +218,18 @@ def check_if_intersect_segment_square(point1, point2, square):
 
 
 def check_if_intersect_segment_segment(point1, point2, point3, point4):
+    """
+        Check if two segments intersect
+
+        Parameters:
+            point1 (list): [x,y] coordinates of the first point of the first segment
+            point2 (list): [x,y] coordinates of the second point of the first segment
+            point3 (list): [x,y] coordinates of the first point of the second segment
+            point4 (list): [x,y] coordinates of the second point of the second segment
+
+        Returns:
+            bool: True if the segments intersect
+    """
 
     if (point2[0] - point1[0]) * (point4[1] - point3[1]) - (point2[1] - point1[1]) * (point4[0] - point3[0]) == 0:
         return False

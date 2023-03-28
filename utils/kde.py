@@ -84,6 +84,19 @@ def compress_data(clusters, min, max):
 
 
 def cost_function(data, bandwidth):
+    """
+        compute the cost function for the data
+
+        Parameters:
+            data: data to be clustered
+            bandwidth: bandwidth for the clustering
+
+        Returns:
+            w_error: weighted error
+            n_error: normalized error
+            error: error
+            clusters.__len__(): number of clusters
+    """
     clusters, min, max = rclustering(data, bandwidth_method=bandwidth)
     new_data, error = compress_data(clusters, min, max)
     print("error: ", error)
@@ -151,6 +164,15 @@ def opt_bw(data, min_val=1, max_val=2.5):
 
 
 def opt_bw_selection(ans_res):
+    """
+        select the optimal bandwidth from the array of optimal bandwidths
+
+        Parameters:
+            ans_res: array of optimal bandwidths
+
+        Returns:    
+            bw_opt: optimal bandwidth
+    """
     # crop the array into a part where the values distances are maximum 0.1 and can be more at most 1 time
     # get the largest of those values
     # this is the optimal bandwidth
