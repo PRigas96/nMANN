@@ -14,7 +14,7 @@ from rtree import index
 data = np.load('nmann.npy')
 print(data.__len__())
 
-
+# get the bandwidth for kernel density estimation
 def GetBandwidth(data):
     # get bandwidth for kernel density estimation
     # bw must be limited by:
