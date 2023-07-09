@@ -5,6 +5,15 @@ import matplotlib.pyplot as plt
 
 
 def GetBandwidth(data):
+    """
+    compute the bandwidth for the kernel density estimation
+
+    Parameters:
+        data: data to be clustered
+
+    Returns:
+        bandwidth: bandwidth for the kernel density estimation
+    """
     # get bandwidth for kernel density estimation
     # bw must be limited by:
     # 1. it minimizes the distance between the maximum and mean of a cluster
@@ -17,23 +26,34 @@ def GetBandwidth(data):
     return bandwidth
 
 
-def rclustering(dataset, bandwidth_method='opt'):
+def rclustering(dataset, bandwidth_method="opt"):
+    """
+    cluster the data using kernel density estimation
+
+    Parameters:
+        dataset: data to be clustered
+        bandwidth_method: method to compute the bandwidth
+
+    Returns:
+        clusters: clusters of the data
+        s[mi]: minima of the kernel density estimation
+        s[ma]: maxima of the kernel density estimation
+    """
     dataset = np.array(dataset)
     data = dataset[:, -1]
-    if bandwidth_method == 'opt':
+    if bandwidth_method == "opt":
         bandwidth = GetBandwidth(data)
     else:
         bandwidth = float(bandwidth_method)
-    #print("bandwidth: ", bandwidth)
-    kde = KernelDensity(kernel='gaussian', bandwidth=bandwidth).fit(
-        data.reshape(-1, 1))
+    # print("bandwidth: ", bandwidth)
+    kde = KernelDensity(kernel="gaussian", bandwidth=bandwidth).fit(data.reshape(-1, 1))
     s = np.linspace(0, 90)
     e = kde.score_samples(s.reshape(-1, 1))
     plt.plot(s, e)
     mi, ma = argrelextrema(e, np.less)[0], argrelextrema(e, np.greater)[0]
     # print them
-    #print("minima: ", s[mi])
-    #print("maxima: ", s[ma])
+    # print("minima: ", s[mi])
+    # print("maxima: ", s[ma])
     # create a np.array of the clusters
     # maximum length is one more than minimum
     clusters = []
@@ -45,12 +65,12 @@ def rclustering(dataset, bandwidth_method='opt'):
                     temp.append(dataset[j])
             clusters.append(np.array(temp))
             continue
-        if i > 0 and i <= mi.__len__()-1:
+        if i > 0 and i <= mi.__len__() - 1:
             for j in range(data.__len__()):
-                if data[j] <= s[mi[i]] and data[j] > s[mi[i-1]]:
+                if data[j] <= s[mi[i]] and data[j] > s[mi[i - 1]]:
                     temp.append(dataset[j])
             clusters.append(np.array(temp))
-            if i == mi.__len__()-1:
+            if i == mi.__len__() - 1:
                 temp = []
                 for j in range(data.__len__()):
                     if data[j] > s[mi[i]]:
@@ -60,9 +80,8 @@ def rclustering(dataset, bandwidth_method='opt'):
     print("number of clusters: ", clusters.__len__())
     return np.array(clusters), s[mi], s[ma]
 
+
 # compress data and calculate error for each cluster
-
-
 def compress_data(clusters, min, max):
     print("No of clusters: ", clusters.__len__())
     print("No of min and max points: ", min.__len__(), max.__len__())
@@ -75,27 +94,24 @@ def compress_data(clusters, min, max):
         print("mean: ", mean)
         # calculate error
         for j in range(clusters[i].__len__()):
-            error[i] += (maxima - clusters[i][j][-1])
+            error[i] += maxima - clusters[i][j][-1]
             clusters[i][j][-1] = mean
     return clusters, error
-
-# create a cost function for w_error and bandwidth, so that u choose bandwidth to minimize w_error
-# w_error must take into  account the number of clusters, we dont want to have too many clusters or too few
 
 
 def cost_function(data, bandwidth):
     """
-        compute the cost function for the data
+    compute the cost function for the data
 
-        Parameters:
-            data: data to be clustered
-            bandwidth: bandwidth for the clustering
+    Parameters:
+        data: data to be clustered
+        bandwidth: bandwidth for the clustering
 
-        Returns:
-            w_error: weighted error
-            n_error: normalized error
-            error: error
-            clusters.__len__(): number of clusters
+    Returns:
+        w_error: weighted error
+        n_error: normalized error
+        error: error
+        clusters.__len__(): number of clusters
     """
     clusters, min, max = rclustering(data, bandwidth_method=bandwidth)
     new_data, error = compress_data(clusters, min, max)
@@ -110,15 +126,15 @@ def cost_function(data, bandwidth):
 
 def opt_bw(data, min_val=1, max_val=2.5):
     """
-        compute the optimal bandwidth for the data
+    compute the optimal bandwidth for the data
 
-        Parameters:
-            data: data to be clustered
-            min_val: minimum value for the weight of the number of clusters
-            max_val: maximum value for the weight of the number of clusters
+    Parameters:
+        data: data to be clustered
+        min_val: minimum value for the weight of the number of clusters
+        max_val: maximum value for the weight of the number of clusters
 
-        Returns:
-            answer: the optimal bandwidth
+    Returns:
+        answer: the optimal bandwidth
     """
     # scan the bandwidth from 0.1 to 5
     # plot the cost function for bw from 0.1 to 5
@@ -140,12 +156,12 @@ def opt_bw(data, min_val=1, max_val=2.5):
     answer = []
     # y2_weight is w_ncl
     for y2_weight in np.arange(min_val, max_val, 0.1):
-        #y2_weight = 2
+        # y2_weight = 2
         # new cost function
-        d = abs(y1_norm - y2_weight*y2_norm)
-        #plt.plot(bw, d)
+        d = abs(y1_norm - y2_weight * y2_norm)
+        # plt.plot(bw, d)
         a = np.where(d == np.min(d))
-        #print("optimal bandwidth: ", bw[a])
+        # print("optimal bandwidth: ", bw[a])
         answer.append(bw[a])
     # get answer in one array
     answer = np.array(answer)
@@ -165,13 +181,13 @@ def opt_bw(data, min_val=1, max_val=2.5):
 
 def opt_bw_selection(ans_res):
     """
-        select the optimal bandwidth from the array of optimal bandwidths
+    select the optimal bandwidth from the array of optimal bandwidths
 
-        Parameters:
-            ans_res: array of optimal bandwidths
+    Parameters:
+        ans_res: array of optimal bandwidths
 
-        Returns:    
-            bw_opt: optimal bandwidth
+    Returns:
+        bw_opt: optimal bandwidth
     """
     # crop the array into a part where the values distances are maximum 0.1 and can be more at most 1 time
     # get the largest of those values
@@ -179,13 +195,14 @@ def opt_bw_selection(ans_res):
     bw_opt = 0
     _top = 0
     e = 0.001
+    smooth = 0.048
     for i in range(ans_res.__len__()):
         if i == 0:
             continue
-        d = ans_res[i] - ans_res[i-1]
-        if d > 0.1 + e:
-            if _top == 1:    # if the previous value was the top
-                bw_opt = ans_res[i-1]
+        d = ans_res[i] - ans_res[i - 1]
+        if d > smooth + e:
+            if _top == 1:  # if the previous value was the top
+                bw_opt = ans_res[i - 1]
                 break
             _top += 1
     if _top == 1:
@@ -195,13 +212,13 @@ def opt_bw_selection(ans_res):
 
 def optimal_clustering(data):
     """
-        get the optimal clustering for the data
+    get the optimal clustering for the data
 
-        Parameters:
-            data: data to be clustered
+    Parameters:
+        data: data to be clustered
 
-        Returns:
-            clusters: the clusters
+    Returns:
+        clusters: the clusters
     """
     # get bw_opt
     bw_opt, ans_res = opt_bw(data)
