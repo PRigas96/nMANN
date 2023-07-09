@@ -10,7 +10,7 @@ Clone the repository and install the requirements:
 git clone https://github.com/PRigas96/NMANNv1
 cd NMANNv1
 conda env create -f environment.yml
-source activate deep3d_pytorch
+source activate nmannv1
 ```
 
 ## Usage
