@@ -1,6 +1,6 @@
 # Practical methods for Approximate Nearest Neighbor Search on non-Manhattan squares
 
-Minas Dioletis, Ioannis Z. Emiris, George Ioannakis, Panagiotis Rigas, Charalampos Tzamos and Andreas Zamanos
+Minas Dioletis, Ioannis Z. Emiris, George Ioannakis, Panagiotis Repouskos, Panagiotis Rigas, Charalampos Tzamos and Andreas Zamanos
 
 ## Installation
 
