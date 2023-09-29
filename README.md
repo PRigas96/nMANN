@@ -2,53 +2,60 @@
 
 Minas Dioletis, Ioannis Z. Emiris, George Ioannakis, Panagiotis Repouskos, Panagiotis Rigas, Charalampos Tzamos and Andreas Zamanos
 
+## Table of Contents
+- [Method](#Method)
+- [Installation](#Installation)
+- [Code Structure](#CD)
+- [Getting Started](#getting_started)
+- [License](#license)
+
+<a id="Installation"></a>
 ## Installation
 
-Clone the repository and install the requirements:
-
+Clone the repository and install the requirements by running the following in your terminal:
 ```
-git clone https://github.com/PRigas96/NMANNv1
-cd NMANNv1
+git clone https://github.com/PRigas96/nMANN
+cd nMANN
 conda env create -f environment.yml
 source activate nmannv1
 ```
-
-## Usage
-
-go to demo folder and infer with the code
-
-## Files
-
-- `demo/`: contains the code for the demo
-
+<a id="CD"></a>
+## Code Structure
 ```
-nmannv1
-│
-└─── data
-    │
-    └─── data_v1 (contains the data)
-    │
-    └─── data_v2 (contains the data)
-    │
-    └─── ...
-│
-└─── jup_not (contains prototype jupyter notebooks)
-│
-└─── other (contains other files)
-│
-└─── utils (contains utility functions)
-     │
-     └─── data.py (contains functions for data creation)
-     │
-     └─── geometry.py (contains functions for geometry)
-     │
-     └───  kde.py (contains functions for kernel density estimation)
-     │
-     └─── metrics.py (contains functions for metrics)
-     │
-     └─── res.py (contains result plot functions)
-     │
-     └─── results.py (contains functions for results)
-     │
-     └─── visualization.py (contains functions for visualization)
+├─── data                          # directory for data used in experiments
+│    ├── data_v1                   #   contains small sized data
+│    ├── data_v2                   #   large sized data
+│    └── ...                       #   helper functions
+├─── dev                           # prototype src used for developement
+├─── utils                         # main package
+│    ├── data.py                   #   data creation functions
+│    ├── geometry.py               #   geometric package
+│    ├── kde.py                    #   kernel density estimation function
+│    ├── metrics.py                #   L_{\infty} metric
+│    ├── res.py                    #   result plot functions
+│    ├── results.py                #   results related functions
+│    └─── visualization.py         #   data for visualization
+├─── demo.ipynb                    # demo notebook
+└─── environment.yml               # enviroment of variables
 ```
+<a id="getting_started"></a>
+## Getting Started
+### Demo
+Use [demo](demo.ipynb) to experiment with the method
+### Application
+1. load a dataset and some querry points using:
+```
+dataset = np.load('./your_path/your_data.npy')
+querry_points = np.load('./your_path/your_querry_points.npy')
+```
+2. Cluster the data:
+```
+clustered_data, optimal_bandwidth, _ = kde.optimal_clustering(data)
+```
+3. Infere:
+```
+nearest_neighbors = inference(clustered_data, querry_points)
+```
+<a id="license"></a>
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
