@@ -3,6 +3,7 @@
 Minas Dioletis, Ioannis Z. Emiris, George Ioannakis, Panagiotis Repouskos, Panagiotis Rigas, Charalampos Tzamos and Andreas Zamanos
 
 ## Table of Contents
+
 - [Method](#Method)
 - [Installation](#Installation)
 - [Code Structure](#CD)
@@ -10,17 +11,22 @@ Minas Dioletis, Ioannis Z. Emiris, George Ioannakis, Panagiotis Repouskos, Panag
 - [License](#license)
 
 <a id="Installation"></a>
+
 ## Installation
 
 Clone the repository and install the requirements by running the following in your terminal:
-```
+
+```[BASH]
 git clone https://github.com/PRigas96/nMANN
 cd nMANN
 conda env create -f environment.yml
 source activate nmannv1
 ```
+
 <a id="CD"></a>
+
 ## Code Structure
+
 ```
 ├─── data                          # directory for data used in experiments
 │    ├── data_v1                   #   contains small sized data
@@ -38,24 +44,38 @@ source activate nmannv1
 ├─── demo.ipynb                    # demo notebook
 └─── environment.yml               # enviroment of variables
 ```
+
 <a id="getting_started"></a>
+
 ## Getting Started
+
 ### Demo
+
 Use [demo](demo.ipynb) to experiment with the method
+
 ### Application
+
 1. load a dataset and some querry points using:
-```
-dataset = np.load('./your_path/your_data.npy')
-querry_points = np.load('./your_path/your_querry_points.npy')
-```
+
+    ```[Python]
+    dataset = np.load('./your_path/your_data.npy')
+    querry_points = np.load('./your_path/your_querry_points.npy')
+    ```
+
 2. Cluster the data:
-```
-clustered_data, optimal_bandwidth, _ = kde.optimal_clustering(data)
-```
+
+    ```[Python]
+    clustered_data, optimal_bandwidth, _ = kde.optimal_clustering(data)
+    ```
+
 3. Infere:
-```
-nearest_neighbors = inference(clustered_data, querry_points)
-```
+
+    ```[Python]
+    nearest_neighbors = inference(clustered_data, querry_points)
+    ```
+
 <a id="license"></a>
+
 ## License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
