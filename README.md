@@ -2,6 +2,11 @@
 
 Minas Dioletis, Ioannis Z. Emiris, George Ioannakis, Panagiotis Repouskos, Panagiotis Rigas, Charalampos Tzamos and Andreas Zamanos
 
+![header](/dev/other/images/pipelinecgta.png)
+
+Figure: Illustration of the pipeline of our approach.
+
+
 ## Table of Contents
 
 - [Method](#Method)
@@ -9,6 +14,15 @@ Minas Dioletis, Ioannis Z. Emiris, George Ioannakis, Panagiotis Repouskos, Panag
 - [Code Structure](#CD)
 - [Getting Started](#getting_started)
 - [License](#license)
+
+<a id="Method"></a>
+
+## Method
+
+- Use of simple L<sub>&infin;</sub><sup>*</sup> for performance gain
+- Unsupervised Learning to reduce error variability
+- Plug-and-Play into any data structure
+- Great scaling and higly parallelizable
 
 <a id="Installation"></a>
 
