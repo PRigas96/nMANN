@@ -71,7 +71,7 @@ Use [demo](demo.ipynb) to experiment with the method
 3. Infere:
 
     ```[Python]
-    nearest_neighbors = inference(clustered_data, querry_points)
+    online.inference(clustered_data, querry_points,'None')
     ```
 
 <a id="license"></a>
