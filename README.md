@@ -19,6 +19,7 @@ Figure: Illustration of the pipeline of our approach.
 
 ## Method
 
+Key points of our method are:
 - Use of simple L<sub>&infin;</sub><sup>*</sup> for performance gain
 - Unsupervised Learning to reduce error variability
 - Plug-and-Play into any data structure
