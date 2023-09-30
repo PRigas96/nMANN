@@ -64,6 +64,12 @@ source activate nmannv1
 
 ## Getting Started
 
+### Input Data
+To construct a square an initial point is required, serving as root (minimum x and y values before rotation), with specific length. Then, it is rotated by rotation angle (degrees).
+```
+[[x_0:double, y_0:double, length:double, rotation_in_degrees:double] ... ]
+```
+
 ### Demo
 
 Use [demo](demo.ipynb) to experiment with the method
