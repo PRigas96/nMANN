@@ -18,6 +18,7 @@ Figure: Illustration of the pipeline of our approach.
 <a id="Method"></a>
 
 ## Method
+We aim to optimize the process of finding the nearest neighbor in a set of squares and a querry point, given the L<sub>&infin;</sub> metric. In order to do so, we utilize the L<sub>&infin;</sub><sup>*</sup> metric to improve performance, which introduces an approximation error. To manage this, we reduce the the variability of the error by clustering the data. We also carry out an optimization process to find the optimal hyperparameters, striking a balance between performance and accuracy. This approach allows us to maintain computational efficiency while ensuring a high level of accuracy.
 
 Key points of our method are:
 - Use of simple L<sub>&infin;</sub><sup>*</sup> for performance gain
@@ -89,7 +90,7 @@ Use [demo](demo.ipynb) to experiment with the method
     clustered_data, optimal_bandwidth, _ = kde.optimal_clustering(data)
     ```
 
-3. Infere:
+3. Infer:
 
     ```[Python]
     online.inference(clustered_data, querry_points,'None')
